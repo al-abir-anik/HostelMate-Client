@@ -4,12 +4,12 @@ const Navbar = () => {
   return (
     <nav className="navbar rounded-box shadow">
       <div className="navbar-start">
-        <a
+        <Link
+          to={"/"}
           className="link text-base-content link-neutral text-xl font-semibold no-underline"
-          href="#"
         >
           HostelMate
-        </a>
+        </Link>
       </div>
       <div className="navbar-center max-md:hidden">
         <ul className="menu menu-horizontal gap-2 p-0 text-base rtl:ml-20">
