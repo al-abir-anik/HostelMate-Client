@@ -1,8 +1,19 @@
-import { Link, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import AuthContext from "../../context/AuthContext/AuthContext";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { user, signOutUser } = useContext(AuthContext);
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => navigate("/logIn"))
+      .catch((error) => console.log("ERROR", error.message));
+  };
+
   return (
-    <nav className="navbar rounded-box shadow">
+    <nav className="navbar lg:px-20 rounded-box shadow">
       <div className="navbar-start">
         <Link
           to={"/"}
@@ -158,9 +169,16 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <Link to={"/logIn"} className="btn btn-primary">
-          Join Us
-        </Link>
+        {user ? (
+          <button onClick={handleSignOut} className="btn btn-soft">
+            Log Out
+          </button>
+        ) : (
+          <Link to={"/logIn"} className="btn btn-primary">
+            Join Us
+          </Link>
+        )}
+
         {/* Notification */}
         <div className="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
           <button
@@ -293,78 +311,79 @@ const Navbar = () => {
           </div>
         </div>
         {/* Avatar */}
-        <div className="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
-          <button
-            id="dropdown-scrollable"
-            type="button"
-            className="dropdown-toggle flex items-center"
-            aria-haspopup="menu"
-            aria-expanded="false"
-            aria-label="Dropdown"
-          >
-            <div className="avatar">
-              <div className="size-9.5 rounded-full">
-                <img
-                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"
-                  alt="avatar 1"
-                />
-              </div>
-            </div>
-          </button>
-          <ul
-            className="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="dropdown-avatar"
-          >
-            <li className="dropdown-header gap-2">
-              <div className="avatar">
-                <div className="w-10 rounded-full">
-                  <img
-                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"
-                    alt="avatar"
-                  />
+        {user && (
+          <div className="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
+            <button
+              id="dropdown-scrollable"
+              type="button"
+              className="dropdown-toggle flex items-center"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              aria-label="Dropdown"
+            >
+              <div className="avatar relative group">
+                <div className="size-9.5 rounded-full">
+                  <img src={user.photoURL} alt="avatar 1" />
                 </div>
+                {user && (
+                  <span className="absolute top-1/2 -translate-y-1/2 left-full ml-2 w-max bg-gray-800 text-white text-sm font-semibold py-2 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    {user?.displayName}
+                  </span>
+                )}
               </div>
-              <div>
-                <h6 className="text-base-content text-base font-semibold">
-                  John Doe
-                </h6>
-                <small className="text-base-content/50">Admin</small>
-              </div>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                <span className="icon-[tabler--user]"></span>
-                My Profile
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                <span className="icon-[tabler--settings]"></span>
-                Settings
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                <span className="icon-[tabler--receipt-rupee]"></span>
-                Billing
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                <span className="icon-[tabler--help-triangle]"></span>
-                FAQs
-              </a>
-            </li>
-            <li className="dropdown-footer gap-2">
-              <a className="btn btn-error btn-soft btn-block" href="#">
-                <span className="icon-[tabler--logout]"></span>
-                Sign out
-              </a>
-            </li>
-          </ul>
-        </div>
+            </button>
+            <ul
+              className="dropdown-menu dropdown-open:opacity-100 hidden min-w-60"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="dropdown-avatar"
+            >
+              <li className="dropdown-header gap-2">
+                <div className="avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={user.photoURL} alt="avatar" />
+                  </div>
+                </div>
+                <div>
+                  <h6 className="text-base-content text-base font-semibold">
+                    John Doe
+                  </h6>
+                  <small className="text-base-content/50">Admin</small>
+                </div>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  <span className="icon-[tabler--user]"></span>
+                  My Profile
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  <span className="icon-[tabler--settings]"></span>
+                  Settings
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  <span className="icon-[tabler--receipt-rupee]"></span>
+                  Billing
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  <span className="icon-[tabler--help-triangle]"></span>
+                  FAQs
+                </a>
+              </li>
+              <li className="dropdown-footer gap-2">
+                <a className="btn btn-error btn-soft btn-block" href="#">
+                  <span className="icon-[tabler--logout]"></span>
+                  Sign out
+                </a>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </nav>
   );

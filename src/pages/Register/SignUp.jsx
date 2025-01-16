@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Google from "../../auth/SocialAuth/Google";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -27,21 +28,21 @@ const SignUp = () => {
         updateUserProfile({ displayName: fullname, photoURL: photoUrl });
         navigate("/");
 
-        // const Toast = Swal.mixin({
-        //   toast: true,
-        //   position: "top",
-        //   showConfirmButton: false,
-        //   timer: 3000,
-        //   timerProgressBar: true,
-        //   didOpen: (toast) => {
-        //     toast.onmouseenter = Swal.stopTimer;
-        //     toast.onmouseleave = Swal.resumeTimer;
-        //   },
-        // });
-        // Toast.fire({
-        //   icon: "success",
-        //   title: "Signed Up Successfully",
-        // });
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Signed Up Successfully",
+        });
       })
       .catch((error) => console.log(error.message));
   };
