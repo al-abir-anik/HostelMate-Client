@@ -5,6 +5,7 @@ import Meals from "../pages/Meals/Meals";
 import UpcomingMeals from "../pages/UpcomingMeals/UpcomingMeals";
 import LogIn from "../pages/Register/LogIn";
 import SignUp from "../pages/Register/SignUp";
+import MealDetails from "../pages/MealDetails/MealDetails";
 
 const Routes = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const Routes = createBrowserRouter([
       {
         path: "/meals",
         element: <Meals></Meals>,
+      },
+      {
+        path: "/mealDetails",
+        element: <MealDetails></MealDetails>,
       },
       {
         path: "/upcomingMeals",
