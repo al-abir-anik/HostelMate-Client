@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import Category from "./Category";
 import Announcement from "./Announcement";
 import Membership from "./Membership";
+import MealCard from "../../components/Meal/MealCard";
 
 const Home = () => {
   return (
@@ -22,7 +23,7 @@ const Home = () => {
 
       {/* Category Section */}
       <section>
-        <Category></Category>
+        <Category><MealCard></MealCard></Category>
       </section>
 
       {/* Announcement Section */}

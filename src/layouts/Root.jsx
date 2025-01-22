@@ -1,22 +1,15 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-
-
-
-
-
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Root = () => {
-
   const location = useLocation();
 
   useEffect(() => {
     const loadFlyonui = async () => {
-      await import('flyonui/flyonui');
+      await import("flyonui/flyonui");
       window.HSStaticMethods.autoInit();
     };
     loadFlyonui();

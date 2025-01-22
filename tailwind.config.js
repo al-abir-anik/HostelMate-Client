@@ -8,9 +8,9 @@ export default {
   ],
   theme: {
     extend: {
-      // fontFamily: {
-      //   sans: ["Jost"],
-      // },
+      fontFamily: {
+        sans: ["Poppins"],
+      },
     },
   },
   plugins: [

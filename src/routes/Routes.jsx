@@ -6,6 +6,7 @@ import UpcomingMeals from "../pages/UpcomingMeals/UpcomingMeals";
 import LogIn from "../pages/Register/LogIn";
 import SignUp from "../pages/Register/SignUp";
 import MealDetails from "../pages/MealDetails/MealDetails";
+import Dashboard from "./../layouts/Dashboard";
 
 const Routes = createBrowserRouter([
   {
@@ -37,6 +38,15 @@ const Routes = createBrowserRouter([
         element: <SignUp></SignUp>,
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    // children: [
+    //   {
+    //     ,
+    //   },
+    // ],
   },
 ]);
 

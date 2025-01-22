@@ -33,6 +33,9 @@ const Navbar = () => {
           <li>
             <NavLink to={"/upcomingMeals"}>Upcoming Meals</NavLink>
           </li>
+          <li>
+            <NavLink to={"/dashboard"}>Dashboard</NavLink>
+          </li>
         </ul>
       </div>
       <div className="navbar-end items-center gap-4">
