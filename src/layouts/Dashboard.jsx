@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -13,9 +13,9 @@ const Dashboard = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       {/* Sidebar */}
-      <aside className="menu w-1/6 bg-lime-200 p-4 shadow-sm rounded-none">
+      <aside className="menu md:w-1/6 bg-lime-200 p-4 shadow-sm rounded-none">
         <div className="drawer-header">
           <Link to={"/"}>
             <div className="flex items-center gap-3">
@@ -25,28 +25,25 @@ const Dashboard = () => {
         </div>
         <ul className="text-white space-y-1 p-0 uppercase">
           <li>
-            <Link to={"/"}>Home</Link>
+            <NavLink to={"adminProfile"}>Admin Profile</NavLink>
           </li>
           <li>
-            <Link to={"adminProfile"}>Admin Profile</Link>
+            <NavLink to={"ManageUsers"}>Manage Users</NavLink>
           </li>
           <li>
-            <Link to={"ManageUsers"}>Manage Users</Link>
+            <NavLink to={"addMeal"}>Add Meal</NavLink>
           </li>
           <li>
-            <Link to={"addMeal"}>Add Meal</Link>
+            <NavLink to={"allMeals"}>All Meals</NavLink>
           </li>
           <li>
-            <Link to={"allMeals"}>All Meals</Link>
+            <NavLink to={"allReviews"}>All Reviews</NavLink>
           </li>
           <li>
-            <Link to={"allReviews"}>All Reviews</Link>
+            <NavLink to={"serveMeals"}>Serve Meals</NavLink>
           </li>
           <li>
-            <Link to={"serveMeals"}>Serve Meals</Link>
-          </li>
-          <li>
-            <Link to={"upcomingMeals"}>Upcoming Meals</Link>
+            <NavLink to={"upcomingMeals"}>Upcoming Meals</NavLink>
           </li>
 
           <div className="divider text-base-content/50 py-6 after:border-0">
@@ -63,13 +60,16 @@ const Dashboard = () => {
 
       {/* Main Content */}
 
-      <main className="flex flex-col min-h-screen">
+      <div className="flex flex-col md:w-5/6 min-h-screen">
         {/* <Navbar></Navbar> */}
-        <div className="flex flex-col flex-grow">
+        <main className="flex flex-col flex-grow">
           <Outlet></Outlet>
-        </div>
+        </main>
         {/* <Footer></Footer> */}
-      </main>
+        <footer className="bg-[#2A3042] text-white py-4 text-center">
+          <p>&copy; 2025 HostelMate. All rights reserved.</p>
+        </footer>
+      </div>
     </div>
   );
 };
