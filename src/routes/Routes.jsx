@@ -9,6 +9,7 @@ import MealDetails from "../pages/MealDetails/MealDetails";
 import Dashboard from "./../layouts/Dashboard";
 import AdminProfile from "../pages/AdminDashboard/AdminProfile";
 import ManageUsers from "../pages/AdminDashboard/ManageUsers";
+import AddMeal from "../pages/AdminDashboard/AddMeal";
 
 const Routes = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const Routes = createBrowserRouter([
       {
         path: "manageUsers",
         element: <ManageUsers></ManageUsers>,
+      },
+      {
+        path: "addMeal",
+        element: <AddMeal></AddMeal>,
       },
     ],
   },
