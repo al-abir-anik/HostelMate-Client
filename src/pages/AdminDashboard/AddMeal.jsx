@@ -3,11 +3,15 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import AuthContext from "../../context/AuthContext/AuthContext";
+import useAxiosPublic from "./../../hooks/Axios/useAxiosPublic";
+
+const imageHostingKey = import.meta.env.VITE_imageHostingKey;
+const imageHostingAPI = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
 
 const AddMeal = () => {
-  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -15,59 +19,61 @@ const AddMeal = () => {
     formState: { errors },
   } = useForm();
 
-  //   const onAddFoodSubmit = (data) => {
-  //     const {
-  //       foodName,
-  //       imageUrl,
-  //       quantity,
-  //       location,
-  //       status,
-  //       expireDate,
-  //       notes,
-  //     } = data;
-  //     const newFood = {
-  //       foodName,
-  //       imageUrl,
-  //       quantity,
-  //       location,
-  //       status,
-  //       expireDate,
-  //       notes,
-  //       userName: user.displayName,
-  //       userEmail: user.email,
-  //       userPhotoUrl: user.photoURL,
-  //     };
+  const onAddMealSubmit = async (data) => {
+    const { title, imageFile, category, price, ingredients, description } =
+      data;
 
-  //     fetch("https://food-bridge-server-hazel.vercel.app/foods", {
-  //       method: "POST",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(newFood),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         if (data.insertedId) {
-  //           const Toast = Swal.mixin({
-  //             toast: true,
-  //             position: "top-end",
-  //             showConfirmButton: false,
-  //             timer: 3000,
-  //             timerProgressBar: true,
-  //             didOpen: (toast) => {
-  //               toast.onmouseenter = Swal.stopTimer;
-  //               toast.onmouseleave = Swal.resumeTimer;
-  //             },
-  //           });
-  //           Toast.fire({
-  //             icon: "success",
-  //             title: "New Food Added Successfully",
-  //           });
-  //           navigate("/manageMyFoods");
-  //         }
-  //       });
-  //   };
+    const image = imageFile[0];
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const res = await axiosPublic.post(imageHostingAPI, formData, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+
+    const newMeal = {
+      title,
+      imageUrl: res.data.data.url,
+      category,
+      price,
+      ingredients,
+      description,
+      distributorName: user.displayName,
+      distributorEmail: user.email,
+    };
+
+    fetch("http://localhost:3000/all-meals", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newMeal),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: "success",
+            title: "New Meal Added Successfully",
+          });
+          navigate("/dashboard/addMeal");
+        }
+      });
+  };
 
   return (
     <div>
@@ -75,7 +81,7 @@ const AddMeal = () => {
         <h1 className="text-3xl font-semibold text-center">Add Meal</h1>
       </header>
       <form
-        // onSubmit={handleSubmit(onAddFoodSubmit)}
+        onSubmit={handleSubmit(onAddMealSubmit)}
         className="mx-auto w-2/3 my-15 gap-5 grid grid-cols-1 md:grid-cols-2"
       >
         {/* Title */}
@@ -110,7 +116,7 @@ const AddMeal = () => {
             accept="image/*"
             required
             className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            {...register("image")}
+            {...register("imageFile")}
           />
         </div>
 
@@ -119,18 +125,23 @@ const AddMeal = () => {
           <label className="block text-gray-700 font-medium mb-1">
             Category *
           </label>
-          <input
-            type="text"
-            placeholder="Enter category"
+          <select
+            defaultValue={"default"}
             required
             {...register("category", {
-              minLength: {
-                value: 2,
-                message: "Category should be at least 2 characters",
-              },
+              required: "Category is required",
             })}
-            className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
+            className=" appearance-none w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            aria-label="select"
+          >
+            <option value="default" disabled>
+              Select a category
+            </option>
+            <option value="Appetizer">Appetizer</option>
+            <option value="Main Course">Main Course</option>
+            <option value="Dessert">Dessert</option>
+            <option value="Beverage">Beverage</option>
+          </select>
           {errors.category && (
             <p className="text-red-600">{errors.category.message}</p>
           )}
