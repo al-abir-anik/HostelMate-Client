@@ -22,7 +22,7 @@ const Home = () => {
 
       {/* Category Section */}
       <section>
-        <Category><MealCard></MealCard></Category>
+        <Category></Category>
       </section>
 
       {/* Announcement Section */}

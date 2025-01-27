@@ -6,42 +6,16 @@ import MealCard from "../../components/Meal/MealCard";
 const Meals = () => {
   const { loading } = useContext(AuthContext);
   const [search, setSearch] = useState([]);
-  // const [sortExpiry, setSortExpiry] = useState(false);
+  const [sortExpiry, setSortExpiry] = useState(false);
   const [column, setColumn] = useState(false);
-  // const [foods, setFoods] = useState([]);
+  const [meals, setMeals] = useState([]);
 
-  const meals = [
-    {
-      _id: 1,
-      title: "Spaghetti Bolognese",
-      image: "https://via.placeholder.com/400x300", // Replace with actual image URL
-      rating: 4.5,
-      price: 12.99,
-    },
-    {
-      _id: 2,
-      title: "Chicken Alfredo",
-      image: "https://via.placeholder.com/400x300",
-      rating: 4.7,
-      price: 14.49,
-    },
-    {
-      _id: 3,
-      title: "Grilled Salmon",
-      image: "https://via.placeholder.com/400x300",
-      rating: 4.9,
-      price: 18.99,
-    },
-  ];
-
-  // useEffect(() => {
-  //   fetch(
-  //     `https://food-bridge-server-hazel.vercel.app/foods?sort=${sortExpiry}&search=${search}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => setFoods(data))
-  //     .catch((error) => console.log(error.message));
-  // }, [sortExpiry, search]);
+  useEffect(() => {
+    fetch(`http://localhost:3000/all-meals?search=${search}`) // ?sort=${sortExpiry}&search=${search}
+      .then((res) => res.json())
+      .then((data) => setMeals(data))
+      .catch((error) => console.log(error.message));
+  }, [search]);
 
   if (loading) {
     return (
@@ -53,9 +27,8 @@ const Meals = () => {
 
   return (
     <div className="w-11/12 lg:w-3/4 mx-auto">
-      {/* Header Section */}
-      <header className="p-6 rounded-lg mb-6 text-center">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-800">
+      <header className="p-6 rounded-lg text-center">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">
           Available Foods
         </h1>
         <p className="text-gray-700 mt-3 text-base sm:text-lg">
@@ -79,9 +52,10 @@ const Meals = () => {
             />
             <select
               className="select join-item w-2/6 border-gray-300"
+              defaultValue={"default"}
               aria-label="select"
             >
-              <option disabled selected>
+              <option value={"default"} disabled>
                 Category
               </option>
               <option>Sci-fi</option>
@@ -92,8 +66,12 @@ const Meals = () => {
         </div>
 
         {/* Price range filter */}
-        <select className="select max-w-sm appearance-none border-gray-300 shadow-sm" aria-label="select">
-          <option disabled selected>
+        <select
+          className="select max-w-sm appearance-none border-gray-300 shadow-sm"
+          defaultValue={"default"}
+          aria-label="select"
+        >
+          <option value={"default"} disabled>
             Filter by Price Range
           </option>
           <option>$0 - $10</option>
@@ -111,7 +89,7 @@ const Meals = () => {
           gap-6 md:gap-10 lg:gap-12 justify-center`}
         >
           {meals.map((meal) => (
-            <MealCard key={meal._id} meals={meals}></MealCard>
+            <MealCard key={meal._id} meal={meal}></MealCard>
           ))}
         </div>
       </main>

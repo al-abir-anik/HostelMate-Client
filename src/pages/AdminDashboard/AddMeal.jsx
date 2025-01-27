@@ -137,10 +137,9 @@ const AddMeal = () => {
             <option value="default" disabled>
               Select a category
             </option>
-            <option value="Appetizer">Appetizer</option>
-            <option value="Main Course">Main Course</option>
-            <option value="Dessert">Dessert</option>
-            <option value="Beverage">Beverage</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
           </select>
           {errors.category && (
             <p className="text-red-600">{errors.category.message}</p>

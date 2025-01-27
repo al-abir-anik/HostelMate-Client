@@ -33,9 +33,6 @@ const Navbar = () => {
           <li>
             <NavLink to={"/upcomingMeals"}>Upcoming Meals</NavLink>
           </li>
-          <li>
-            <NavLink to={"/dashboard/adminProfile"}>Dashboard</NavLink>
-          </li>
         </ul>
       </div>
       <div className="navbar-end items-center gap-4">
@@ -172,16 +169,6 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {user ? (
-          <button onClick={handleSignOut} className="btn btn-soft">
-            Log Out
-          </button>
-        ) : (
-          <Link to={"/logIn"} className="btn btn-primary">
-            Join Us
-          </Link>
-        )}
-
         {/* Notification */}
         <div className="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
           <button
@@ -314,7 +301,7 @@ const Navbar = () => {
           </div>
         </div>
         {/* Avatar */}
-        {user && (
+        {user ? (
           <div className="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
             <button
               id="dropdown-scrollable"
@@ -326,13 +313,8 @@ const Navbar = () => {
             >
               <div className="avatar relative group">
                 <div className="size-9.5 rounded-full">
-                  <img src={user.photoURL} alt="avatar 1" />
+                  <img src={user?.photoURL} alt="avatar 1" />
                 </div>
-                {user && (
-                  <span className="absolute top-1/2 -translate-y-1/2 left-full ml-2 w-max bg-gray-800 text-white text-sm font-semibold py-2 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    {user?.displayName}
-                  </span>
-                )}
               </div>
             </button>
             <ul
@@ -344,12 +326,12 @@ const Navbar = () => {
               <li className="dropdown-header gap-2">
                 <div className="avatar">
                   <div className="w-10 rounded-full">
-                    <img src={user.photoURL} alt="avatar" />
+                    <img src={user?.photoURL} alt="avatar" />
                   </div>
                 </div>
                 <div>
                   <h6 className="text-base-content text-base font-semibold">
-                    John Doe
+                    {user?.displayName}
                   </h6>
                   <small className="text-base-content/50">Admin</small>
                 </div>
@@ -360,34 +342,40 @@ const Navbar = () => {
                   My Profile
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a className="dropdown-item" href="#">
                   <span className="icon-[tabler--settings]"></span>
                   Settings
                 </a>
-              </li>
+              </li> */}
               <li>
-                <a className="dropdown-item" href="#">
-                  <span className="icon-[tabler--receipt-rupee]"></span>
-                  Billing
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
+                <Link to={"/dashboard/adminProfile"} className="dropdown-item">
                   <span className="icon-[tabler--help-triangle]"></span>
-                  FAQs
-                </a>
+                  Dashboard
+                </Link>
               </li>
               <li className="dropdown-footer gap-2">
-                <a className="btn btn-error btn-soft btn-block" href="#">
+                <button
+                  onClick={handleSignOut}
+                  className="btn btn-error btn-soft btn-block"
+                >
                   <span className="icon-[tabler--logout]"></span>
                   Sign out
-                </a>
+                </button>
               </li>
             </ul>
           </div>
+        ) : (
+          <Link to={"/logIn"}>
+            <button className="btn btn-primary">Log In</button>
+          </Link>
         )}
       </div>
+      {/* {user || (
+          <Link to={"/logIn"}>
+            <button className="btn btn-primary">Log In</button>
+          </Link>
+        )} */}
     </nav>
   );
 };

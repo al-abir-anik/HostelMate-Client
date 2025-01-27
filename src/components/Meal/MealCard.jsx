@@ -1,24 +1,29 @@
-const MealCard = ({ meals }) => {
+import { Link } from "react-router-dom";
+
+const MealCard = ({ meal }) => {
+  const { _id, title, imageUrl, price } = meal;
+
   return (
-    <div className="card group hover:shadow sm:max-w-sm">
+    <div className="card group md:w-96 overflow-hidden mx-auto hover:shadow sm:max-w-sm">
       <figure>
         <img
-          src="https://cdn.flyonui.com/fy-assets/components/card/image-8.png"
+          src={imageUrl}
           alt="Shoes"
-          className="transition-transform duration-500 group-hover:scale-110"
+          className="h-60 object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </figure>
       <div className="card-body">
-        <h5 className="card-title mb-2.5">Nike Air Max</h5>
+        <h5 className="card-title mb-2.5">{title}</h5>
         <p className="text-sm text-gray-600 mb-1">Rating: ⭐⭐⭐⭐⭐</p>
-        <p className="text-lg font-bold mb-2">$120.00</p>
-        <p className="mb-6">
+        <p className="text-lg font-bold my-2">${price}</p>
+        {/* <p className="mb-6">
           Nike Air Max is a popular line of athletic shoes that feature Nike's
           signature Air cushioning technology in the sole.
-        </p>
-        <div className="card-actions">
-          <button className="btn btn-primary">Meal Details</button>
-        </div>
+        </p> */}
+
+        <Link to={`/meal/${_id}`}>
+          <button className="btn btn-primary mt-2">Meal Details</button>
+        </Link>
       </div>
     </div>
   );

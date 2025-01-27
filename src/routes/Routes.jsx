@@ -10,6 +10,9 @@ import Dashboard from "./../layouts/Dashboard";
 import AdminProfile from "../pages/AdminDashboard/AdminProfile";
 import ManageUsers from "../pages/AdminDashboard/ManageUsers";
 import AddMeal from "../pages/AdminDashboard/AddMeal";
+import AllMeals from "../pages/AdminDashboard/AllMeals";
+import AllReviews from "../pages/AdminDashboard/AllReviews";
+import ServeMeals from "./../pages/AdminDashboard/ServeMeals";
 
 const Routes = createBrowserRouter([
   {
@@ -19,15 +22,18 @@ const Routes = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+        loader: () => fetch("http://localhost:3000/all-meals"),
       },
       {
         path: "/meals",
         element: <Meals></Meals>,
       },
       {
-        path: "/mealDetails",
+        path: "/meal/:id",
         element: <MealDetails></MealDetails>,
-      },
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/all-meals/${params.id}`),
+      },     
       {
         path: "/upcomingMeals",
         element: <UpcomingMeals></UpcomingMeals>,
@@ -57,6 +63,18 @@ const Routes = createBrowserRouter([
       {
         path: "addMeal",
         element: <AddMeal></AddMeal>,
+      },
+      {
+        path: "allMeals",
+        element: <AllMeals></AllMeals>,
+      },
+      {
+        path: "allReviews",
+        element: <AllReviews></AllReviews>,
+      },
+      {
+        path: "serveMeals",
+        element: <ServeMeals></ServeMeals>,
       },
     ],
   },
