@@ -25,8 +25,8 @@ const LogIn = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
+
+      <div className="mx-auto bg-gray-100 shadow-md rounded p-8 mt-10 w-full max-w-md">
         <h2 className="text-2xl font-bold text-gray-700 mb-6 text-center">
           Log In
         </h2>
@@ -47,7 +47,7 @@ const LogIn = () => {
                   message: "Movie Title should be at least 2 characters.",
                 },
               })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -66,7 +66,7 @@ const LogIn = () => {
                   message: "Movie Title should be at least 2 characters.",
                 },
               })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {/* {wrongPass && <p className="text-red-600">{wrongPass}</p>} */}
             <a className="flex justify-end mt-2 font-bold text-sm text-blue-500 hover:text-blue-700">
@@ -96,7 +96,7 @@ const LogIn = () => {
         {/* Social Login */}
         <Google></Google>
       </div>
-    </div>
+
   );
 };
 

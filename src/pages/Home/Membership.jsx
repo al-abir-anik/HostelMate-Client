@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 
 const Membership = () => {
@@ -45,7 +46,7 @@ const Membership = () => {
   return (
     <section className=" py-16">
       <div className="container mx-auto px-4 space-y-10">
-      <SectionTitle
+        <SectionTitle
           heading={"Category"}
           description={"this is the way how i do my hostelmate category"}
         ></SectionTitle>
@@ -53,7 +54,7 @@ const Membership = () => {
           {packages.map((pkg) => (
             <div
               key={pkg.id}
-              className={`border-2 ${pkg.borderColor} rounded-lg p-6 shadow-sm hover:shadow-lg transform hover:scale-105 transition duration-300 ${pkg.bgColor}`}
+              className={`border-2 ${pkg.borderColor} rounded-lg p-6 shadow-sm transform hover:scale-105 transition duration-300 ${pkg.bgColor}`}
             >
               <h3 className="text-xl font-semibold text-center mb-4">
                 {pkg.name}
@@ -80,17 +81,19 @@ const Membership = () => {
                   </li>
                 ))}
               </ul>
-              <button
-                className={`w-full py-2 px-4 rounded-lg text-white font-semibold ${
-                  pkg.name === "Silver"
-                    ? "bg-gray-500 hover:bg-gray-600"
-                    : pkg.name === "Gold"
-                    ? "bg-yellow-500 hover:bg-yellow-600"
-                    : "bg-blue-500 hover:bg-blue-600"
-                } transition duration-300`}
-              >
-                Upgrade to {pkg.name}
-              </button>
+              <Link to={"checkout"}>
+                <button
+                  className={`w-full py-2 px-4 rounded-lg text-white font-semibold ${
+                    pkg.name === "Silver"
+                      ? "bg-gray-500 hover:bg-gray-600"
+                      : pkg.name === "Gold"
+                      ? "bg-yellow-500 hover:bg-yellow-600"
+                      : "bg-blue-500 hover:bg-blue-600"
+                  } transition duration-300`}
+                >
+                  Upgrade to {pkg.name}
+                </button>
+              </Link>
             </div>
           ))}
         </div>

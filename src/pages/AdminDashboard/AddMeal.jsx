@@ -38,6 +38,7 @@ const AddMeal = () => {
       imageUrl: res.data.data.url,
       category,
       price,
+      likes: 0,
       ingredients,
       description,
       distributorName: user.displayName,

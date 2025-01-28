@@ -4,15 +4,17 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Google from "../../auth/SocialAuth/Google";
 import Swal from "sweetalert2";
+import useAxiosPublic from "./../../hooks/Axios/useAxiosPublic";
 
 const SignUp = () => {
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
-  const { setUser, createUser, updateUserProfile } =
-    useContext(AuthContext);
+  const { setUser, createUser, updateUserProfile } = useContext(AuthContext);
 
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
@@ -22,27 +24,37 @@ const SignUp = () => {
 
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
         const updateUser = result.user;
         setUser(updateUser);
-        updateUserProfile({ displayName: fullname, photoURL: photoUrl });
-        navigate("/");
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Signed Up Successfully",
-        });
+        updateUserProfile({ displayName: fullname, photoURL: photoUrl }).then(
+          () => {
+            const newUser = {
+              name: fullname,
+              email: email,
+            };
+            axiosPublic.post("/users", newUser).then((res) => {
+              if (res.data.insertedId) {
+                reset();
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top",
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                  },
+                });
+                Toast.fire({
+                  icon: "success",
+                  title: "Signed Up Successfully",
+                });
+                navigate("/");
+              }
+            });
+          }
+        );
       })
       .catch((error) => console.log(error.message));
   };

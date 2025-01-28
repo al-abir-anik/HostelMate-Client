@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar lg:px-20 rounded-box shadow">
+    <nav className="navbar lg:px-20 rounded-box shadow-sm">
       <div className="navbar-start">
         <Link
           to={"/"}

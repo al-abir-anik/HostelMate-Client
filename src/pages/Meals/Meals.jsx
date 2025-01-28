@@ -6,9 +6,9 @@ import MealCard from "../../components/Meal/MealCard";
 const Meals = () => {
   const { loading } = useContext(AuthContext);
   const [search, setSearch] = useState([]);
+  const [meals, setMeals] = useState([]);
   const [sortExpiry, setSortExpiry] = useState(false);
   const [column, setColumn] = useState(false);
-  const [meals, setMeals] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:3000/all-meals?search=${search}`) // ?sort=${sortExpiry}&search=${search}

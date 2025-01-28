@@ -13,6 +13,8 @@ import AddMeal from "../pages/AdminDashboard/AddMeal";
 import AllMeals from "../pages/AdminDashboard/AllMeals";
 import AllReviews from "../pages/AdminDashboard/AllReviews";
 import ServeMeals from "./../pages/AdminDashboard/ServeMeals";
+import Checkout from "../pages/Checkout/Checkout";
+import PrivateRoute from "./PrivateRoute";
 
 const Routes = createBrowserRouter([
   {
@@ -22,7 +24,7 @@ const Routes = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:3000/all-meals"),
+        loader: () => fetch("http://localhost:3000/categoryMeals"),
       },
       {
         path: "/meals",
@@ -32,11 +34,19 @@ const Routes = createBrowserRouter([
         path: "/meal/:id",
         element: <MealDetails></MealDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/all-meals/${params.id}`),
-      },     
+          fetch(`http://localhost:3000/meal/${params.id}`),
+      },
       {
         path: "/upcomingMeals",
         element: <UpcomingMeals></UpcomingMeals>,
+      },
+      {
+        path: "/checkout",
+        element: (
+          <PrivateRoute>
+            <Checkout></Checkout>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/logIn",
