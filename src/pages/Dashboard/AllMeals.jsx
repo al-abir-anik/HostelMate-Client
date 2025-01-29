@@ -23,7 +23,7 @@ const AllMeals = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://food-bridge-server-hazel.vercel.app/foods/${id}`, {
+        fetch(`https://hostel-mate-server-ten.vercel.app/all-meals/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -34,8 +34,8 @@ const AllMeals = () => {
                 text: "Your Meal has been deleted.",
                 icon: "success",
               });
-              const remainingFoods = meals.filter((food) => food._id !== id);
-              setMeals(remainingFoods);
+              const remainingMeals = meals.filter((m) => m._id !== id);
+              setMeals(remainingMeals);
             }
           });
       }

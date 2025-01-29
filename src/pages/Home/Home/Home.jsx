@@ -6,9 +6,7 @@ import { useLoaderData } from "react-router-dom";
 
 const Home = () => {
   const categoryMeals = useLoaderData();
-  console.log(categoryMeals);
   
-
   return (
     <main>
       {/* Banner Section */}

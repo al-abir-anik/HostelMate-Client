@@ -97,6 +97,40 @@ const Dashboard = () => {
             </li>
           </ul>
         )} */}
+
+<ul className="text-white space-y-1 p-0 uppercase">
+            <li>
+              <NavLink to={"adminProfile"}>Admin Profile</NavLink>
+            </li>
+            <li>
+              <NavLink to={"ManageUsers"}>Manage Users</NavLink>
+            </li>
+            <li>
+              <NavLink to={"addMeal"}>Add Meal</NavLink>
+            </li>
+            <li>
+              <NavLink to={"allMeals"}>All Meals</NavLink>
+            </li>
+            <li>
+              <NavLink to={"allReviews"}>All Reviews</NavLink>
+            </li>
+            <li>
+              <NavLink to={"serveMeals"}>Serve Meals</NavLink>
+            </li>
+            <li>
+              <NavLink to={"upcomingMeals"}>Upcoming Meals</NavLink>
+            </li>
+
+            <div className="divider text-base-content/50 py-6 after:border-0">
+              Account
+            </div>
+            <li>
+              <a href="#">
+                <span className="icon-[tabler--logout-2] size-5"></span>
+                Sign Out
+              </a>
+            </li>
+          </ul>
       </aside>
 
       {/* Main Content */}
