@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Link,
   NavLink,
@@ -6,6 +6,7 @@ import {
   useLoaderData,
   useLocation,
 } from "react-router-dom";
+import AuthContext from "../context/AuthContext/AuthContext";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -17,12 +18,23 @@ const Dashboard = () => {
     loadFlyonui();
   }, [location.pathname]);
 
-  const allUsers = useLoaderData();
+  const { user, loading, setLoading } = useContext(AuthContext);
+  const userEmail = user.email;
+  const [currentUser, setCurrentUser] = useState(null);
 
-  // const [currentUser, setCurrentUser] = useState();
-  // useEffect(() => {
-  //   fetch(``);
-  // }, []);
+  useEffect(() => {
+    fetch(`http://localhost:3000/user/${userEmail}`)
+      .then((res) => res.json())
+      .then((data) => setCurrentUser(data));
+  }, [userEmail]);
+
+  if (loading || !currentUser) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="flex">
@@ -35,7 +47,7 @@ const Dashboard = () => {
             </div>
           </Link>
         </div>
-        {/* {currentUser.role === "admin" && (
+        {currentUser.role === "admin" && (
           <ul className="text-white space-y-1 p-0 uppercase">
             <li>
               <NavLink to={"adminProfile"}>Admin Profile</NavLink>
@@ -96,41 +108,7 @@ const Dashboard = () => {
               </a>
             </li>
           </ul>
-        )} */}
-
-<ul className="text-white space-y-1 p-0 uppercase">
-            <li>
-              <NavLink to={"adminProfile"}>Admin Profile</NavLink>
-            </li>
-            <li>
-              <NavLink to={"ManageUsers"}>Manage Users</NavLink>
-            </li>
-            <li>
-              <NavLink to={"addMeal"}>Add Meal</NavLink>
-            </li>
-            <li>
-              <NavLink to={"allMeals"}>All Meals</NavLink>
-            </li>
-            <li>
-              <NavLink to={"allReviews"}>All Reviews</NavLink>
-            </li>
-            <li>
-              <NavLink to={"serveMeals"}>Serve Meals</NavLink>
-            </li>
-            <li>
-              <NavLink to={"upcomingMeals"}>Upcoming Meals</NavLink>
-            </li>
-
-            <div className="divider text-base-content/50 py-6 after:border-0">
-              Account
-            </div>
-            <li>
-              <a href="#">
-                <span className="icon-[tabler--logout-2] size-5"></span>
-                Sign Out
-              </a>
-            </li>
-          </ul>
+        )}
       </aside>
 
       {/* Main Content */}

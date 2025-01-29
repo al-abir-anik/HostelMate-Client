@@ -1,5 +1,5 @@
 import { useContext} from "react";
-import { Link, NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext/AuthContext";
 
 const Navbar = () => {
@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="navbar-start">
         <Link
           to={"/"}
-          className="link text-base-content link-neutral text-xl font-semibold no-underline"
+          className="link text-base-content link-neutral hover:link-accent text-xl font-semibold no-underline transition active:scale-95"
         >
           HostelMate
         </Link>
@@ -350,7 +350,7 @@ const Navbar = () => {
                 </a>
               </li> */}
               <li>
-                <Link to={"/dashboard/adminProfile"} className="dropdown-item">
+                <Link to={"/dashboard"} className="dropdown-item">
                   <span className="icon-[tabler--help-triangle]"></span>
                   Dashboard
                 </Link>

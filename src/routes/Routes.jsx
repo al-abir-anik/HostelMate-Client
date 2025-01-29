@@ -7,15 +7,16 @@ import LogIn from "../pages/Register/LogIn";
 import SignUp from "../pages/Register/SignUp";
 import MealDetails from "../pages/MealDetails/MealDetails";
 import Dashboard from "./../layouts/Dashboard";
-import AdminProfile from "../pages/Dashboard/AdminProfile";
-import ManageUsers from "../pages/Dashboard/ManageUsers";
-import AddMeal from "../pages/Dashboard/AddMeal";
-import AllMeals from "../pages/Dashboard/AllMeals";
-import AllReviews from "../pages/Dashboard/AllReviews";
-import ServeMeals from "../pages/Dashboard/ServeMeals";
+import AdminProfile from "../pages/AdminDashboard/AdminProfile";
+import ManageUsers from "../pages/AdminDashboard/ManageUsers";
+import AddMeal from "../pages/AdminDashboard/AddMeal";
+import AllMeals from "../pages/AdminDashboard/AllMeals";
+import AllReviews from "../pages/AdminDashboard/AllReviews";
+import ServeMeals from "../pages/AdminDashboard/ServeMeals";
 import Checkout from "../pages/Checkout/Checkout";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import DashboardPage from "../pages/UserDashboard/DashboardPage";
 
 const Routes = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const Routes = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "/dashboard",
+        element: <DashboardPage></DashboardPage>,
+      },
       {
         path: "adminProfile",
         element: <AdminProfile></AdminProfile>,
