@@ -1,9 +1,14 @@
-import { useEffect } from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLoaderData,
+  useLocation,
+} from "react-router-dom";
 
 const Dashboard = () => {
   const location = useLocation();
-
   useEffect(() => {
     const loadFlyonui = async () => {
       await import("flyonui/flyonui");
@@ -11,6 +16,13 @@ const Dashboard = () => {
     };
     loadFlyonui();
   }, [location.pathname]);
+
+  const allUsers = useLoaderData();
+
+  // const [currentUser, setCurrentUser] = useState();
+  // useEffect(() => {
+  //   fetch(``);
+  // }, []);
 
   return (
     <div className="flex">
@@ -23,39 +35,68 @@ const Dashboard = () => {
             </div>
           </Link>
         </div>
-        <ul className="text-white space-y-1 p-0 uppercase">
-          <li>
-            <NavLink to={"adminProfile"}>Admin Profile</NavLink>
-          </li>
-          <li>
-            <NavLink to={"ManageUsers"}>Manage Users</NavLink>
-          </li>
-          <li>
-            <NavLink to={"addMeal"}>Add Meal</NavLink>
-          </li>
-          <li>
-            <NavLink to={"allMeals"}>All Meals</NavLink>
-          </li>
-          <li>
-            <NavLink to={"allReviews"}>All Reviews</NavLink>
-          </li>
-          <li>
-            <NavLink to={"serveMeals"}>Serve Meals</NavLink>
-          </li>
-          <li>
-            <NavLink to={"upcomingMeals"}>Upcoming Meals</NavLink>
-          </li>
+        {/* {currentUser.role === "admin" && (
+          <ul className="text-white space-y-1 p-0 uppercase">
+            <li>
+              <NavLink to={"adminProfile"}>Admin Profile</NavLink>
+            </li>
+            <li>
+              <NavLink to={"ManageUsers"}>Manage Users</NavLink>
+            </li>
+            <li>
+              <NavLink to={"addMeal"}>Add Meal</NavLink>
+            </li>
+            <li>
+              <NavLink to={"allMeals"}>All Meals</NavLink>
+            </li>
+            <li>
+              <NavLink to={"allReviews"}>All Reviews</NavLink>
+            </li>
+            <li>
+              <NavLink to={"serveMeals"}>Serve Meals</NavLink>
+            </li>
+            <li>
+              <NavLink to={"upcomingMeals"}>Upcoming Meals</NavLink>
+            </li>
 
-          <div className="divider text-base-content/50 py-6 after:border-0">
-            Account
-          </div>
-          <li>
-            <a href="#">
-              <span className="icon-[tabler--logout-2] size-5"></span>
-              Sign Out
-            </a>
-          </li>
-        </ul>
+            <div className="divider text-base-content/50 py-6 after:border-0">
+              Account
+            </div>
+            <li>
+              <a href="#">
+                <span className="icon-[tabler--logout-2] size-5"></span>
+                Sign Out
+              </a>
+            </li>
+          </ul>
+        )}
+
+        {currentUser.role === "user" && (
+          <ul className="text-white space-y-1 p-0 uppercase">
+            <li>
+              <NavLink to={"myProfile"}>My Profile</NavLink>
+            </li>
+            <li>
+              <NavLink to={"requestedMeals"}>Requested Meals</NavLink>
+            </li>
+            <li>
+              <NavLink to={"myReviews"}>My Reviews</NavLink>
+            </li>
+            <li>
+              <NavLink to={"paymentHistory"}>Payment History</NavLink>
+            </li>
+
+            <div className="divider text-base-content/50 py-6 after:border-0">
+              Account
+            </div>
+            <li>
+              <a href="#">
+                <span className="icon-[tabler--logout-2] size-5"></span>
+                Sign Out
+              </a>
+            </li>
+          </ul>
+        )} */}
       </aside>
 
       {/* Main Content */}

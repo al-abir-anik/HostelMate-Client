@@ -1,16 +1,46 @@
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import Swal from "sweetalert2";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users?search=${search}`)
+    fetch(`https://hostel-mate-server-ten.vercel.app/users?search=${search}`)
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((error) => console.log(error.message));
   }, [search]);
+
+  const handleMakeAdmin = (user) => {
+    fetch(`https://hostel-mate-server-ten.vercel.app/users/admin/${user._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: "success",
+            title: `${user.name} is Admin now`,
+          });
+        }
+      });
+  };
 
   return (
     <div>
@@ -53,9 +83,16 @@ const ManageUsers = () => {
                     Inactive
                   </td>
                   <td className="border px-4 py-2 text-center">
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                      Make Admin
-                    </button>
+                    {user.role === "admin" ? (
+                      "Admin"
+                    ) : (
+                      <button
+                        onClick={() => handleMakeAdmin(user)}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                      >
+                        Make Admin
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}

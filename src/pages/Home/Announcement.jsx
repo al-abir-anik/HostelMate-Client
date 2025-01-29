@@ -29,8 +29,8 @@ const Announcement = () => {
     <section className=" py-10">
       <div className="container mx-auto px-4 space-y-10">
         <SectionTitle
-          heading={"Category"}
-          description={"this is the way how i do my hostelmate category"}
+          heading={"Announcement"}
+          description={"this is the way how i do my hostelmate Announcement"}
         ></SectionTitle>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event) => (

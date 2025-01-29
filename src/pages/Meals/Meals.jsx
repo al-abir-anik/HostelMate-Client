@@ -11,7 +11,7 @@ const Meals = () => {
   const [column, setColumn] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/all-meals?search=${search}`) // ?sort=${sortExpiry}&search=${search}
+    fetch(`https://hostel-mate-server-ten.vercel.app/all-meals?search=${search}`) // ?sort=${sortExpiry}&search=${search}
       .then((res) => res.json())
       .then((data) => setMeals(data))
       .catch((error) => console.log(error.message));

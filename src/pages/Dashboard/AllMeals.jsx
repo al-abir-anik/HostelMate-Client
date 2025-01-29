@@ -6,7 +6,7 @@ const AllMeals = () => {
   const [meals, setMeals] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/all-meals`)
+    fetch(`https://hostel-mate-server-ten.vercel.app/all-meals`)
       .then((res) => res.json())
       .then((data) => setMeals(data))
       .catch((error) => console.log(error.message));

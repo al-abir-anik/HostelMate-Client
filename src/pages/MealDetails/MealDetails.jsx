@@ -13,7 +13,7 @@ const MealDetails = () => {
   const [likeCount, setLikeCount] = useState(likes);
   const handleLikeCount = () => {
     if (user && user.email) {
-      fetch(`http://localhost:3000/meal/${_id}`, {
+      fetch(`https://hostel-mate-server-ten.vercel.app/meal/${_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const MealDetails = () => {
         })
         .then((data) => {
           if (data.success) {
-            setLikeCount(data);
+            setLikeCount(data.likes);
           } else {
             console.error("Error updating like count:", data.message);
           }

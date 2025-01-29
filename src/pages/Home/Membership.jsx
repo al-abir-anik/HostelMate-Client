@@ -47,8 +47,8 @@ const Membership = () => {
     <section className=" py-16">
       <div className="container mx-auto px-4 space-y-10">
         <SectionTitle
-          heading={"Category"}
-          description={"this is the way how i do my hostelmate category"}
+          heading={"Membership"}
+          description={"this is the way how i do my hostelmate membership"}
         ></SectionTitle>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {packages.map((pkg) => (

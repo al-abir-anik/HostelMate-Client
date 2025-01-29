@@ -7,12 +7,12 @@ import LogIn from "../pages/Register/LogIn";
 import SignUp from "../pages/Register/SignUp";
 import MealDetails from "../pages/MealDetails/MealDetails";
 import Dashboard from "./../layouts/Dashboard";
-import AdminProfile from "../pages/AdminDashboard/AdminProfile";
-import ManageUsers from "../pages/AdminDashboard/ManageUsers";
-import AddMeal from "../pages/AdminDashboard/AddMeal";
-import AllMeals from "../pages/AdminDashboard/AllMeals";
-import AllReviews from "../pages/AdminDashboard/AllReviews";
-import ServeMeals from "./../pages/AdminDashboard/ServeMeals";
+import AdminProfile from "../pages/Dashboard/AdminProfile";
+import ManageUsers from "../pages/Dashboard/ManageUsers";
+import AddMeal from "../pages/Dashboard/AddMeal";
+import AllMeals from "../pages/Dashboard/AllMeals";
+import AllReviews from "../pages/Dashboard/AllReviews";
+import ServeMeals from "../pages/Dashboard/ServeMeals";
 import Checkout from "../pages/Checkout/Checkout";
 import PrivateRoute from "./PrivateRoute";
 
@@ -24,7 +24,8 @@ const Routes = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:3000/categoryMeals"),
+        loader: () =>
+          fetch("https://hostel-mate-server-ten.vercel.app/categoryMeals"),
       },
       {
         path: "/meals",
@@ -34,7 +35,7 @@ const Routes = createBrowserRouter([
         path: "/meal/:id",
         element: <MealDetails></MealDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/meal/${params.id}`),
+          fetch(`https://hostel-mate-server-ten.vercel.app/meal/${params.id}`),
       },
       {
         path: "/upcomingMeals",
@@ -60,7 +61,11 @@ const Routes = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "adminProfile",

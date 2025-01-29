@@ -1,28 +1,26 @@
-import { Link, useLoaderData } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import MealCard from "../../components/Meal/MealCard";
 import { useEffect, useState } from "react";
 
-const Category = () => {
-  const allMeals = useLoaderData();
+const Category = ({ categoryMeals }) => {
   const [breakfastMeals, setBreakfastMeals] = useState([]);
   const [lunchMeals, setLunchMeals] = useState([]);
   const [dinnerMeals, setDinnerMeals] = useState([]);
 
   useEffect(() => {
-    const breakfastCategory = allMeals.filter(
+    const breakfastCategory = categoryMeals.filter(
       (m) => m.category === "Breakfast"
     );
     setBreakfastMeals(breakfastCategory);
-  }, [allMeals]);
+  }, [categoryMeals]);
   useEffect(() => {
-    const lunchCategory = allMeals.filter((m) => m.category === "Lunch");
+    const lunchCategory = categoryMeals.filter((m) => m.category === "Lunch");
     setLunchMeals(lunchCategory);
-  }, [allMeals]);
+  }, [categoryMeals]);
   useEffect(() => {
-    const dinnerCategory = allMeals.filter((m) => m.category === "Dinner");
+    const dinnerCategory = categoryMeals.filter((m) => m.category === "Dinner");
     setDinnerMeals(dinnerCategory);
-  }, [allMeals]);
+  }, [categoryMeals]);
 
   return (
     <div className="w-5/6 lg:w-3/4 mx-auto mt-20 mb-10 space-y-14">
@@ -91,7 +89,7 @@ const Category = () => {
           aria-labelledby="tabs-fill-item-1"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {allMeals.map((meal) => (
+            {categoryMeals.map((meal) => (
               <MealCard key={meal._id} meal={meal}></MealCard>
             ))}
           </div>

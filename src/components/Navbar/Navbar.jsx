@@ -1,10 +1,11 @@
-import { useContext } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useContext} from "react";
+import { Link, NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext/AuthContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, signOutUser } = useContext(AuthContext);
+  
 
   const handleSignOut = () => {
     signOutUser()
@@ -333,7 +334,7 @@ const Navbar = () => {
                   <h6 className="text-base-content text-base font-semibold">
                     {user?.displayName}
                   </h6>
-                  <small className="text-base-content/50">Admin</small>
+                  {/* <small className="text-base-content/50">Admin</small> */}
                 </div>
               </li>
               <li>

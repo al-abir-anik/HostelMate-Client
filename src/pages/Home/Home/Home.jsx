@@ -2,9 +2,13 @@ import Banner from "../Banner";
 import Category from "../Category";
 import Announcement from "../Announcement";
 import Membership from "../Membership";
-import MealCard from "../../../components/Meal/MealCard";
+import { useLoaderData } from "react-router-dom";
 
 const Home = () => {
+  const categoryMeals = useLoaderData();
+  console.log(categoryMeals);
+  
+
   return (
     <main>
       {/* Banner Section */}
@@ -22,7 +26,7 @@ const Home = () => {
 
       {/* Category Section */}
       <section>
-        <Category></Category>
+        <Category categoryMeals={categoryMeals}></Category>
       </section>
 
       {/* Announcement Section */}

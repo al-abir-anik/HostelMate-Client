@@ -45,7 +45,7 @@ const AddMeal = () => {
       distributorEmail: user.email,
     };
 
-    fetch("http://localhost:3000/all-meals", {
+    fetch("https://hostel-mate-server-ten.vercel.app/all-meals", {
       method: "POST",
       headers: {
         "content-type": "application/json",
