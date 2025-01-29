@@ -7,7 +7,7 @@ const MealDetails = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const specificMeal = useLoaderData();
-  const { _id, title, imageUrl, category, likes, ingredient, description } =
+  const { _id, title, imageUrl, category, price, likes, ingredients, description } =
     specificMeal;
 
   const [likeCount, setLikeCount] = useState(likes);
@@ -66,15 +66,17 @@ const MealDetails = () => {
           </div>
 
           <div className="lg:w-1/2">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">{title}</h1>
-            <p className="text-gray-500 mb-2">
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">{title}</h1>
+            <p className="text-gray-500 mb-4">
               <strong>Category :</strong> {category}
             </p>
-            <p className="text-gray-600 mb-6">{description}</p>
-            <p className="text-gray-500 mb-6">
-              <strong>Ingredients:</strong> {ingredient}
+            <p className="text-gray-500 mb-4">
+              <strong>Price :</strong> $ {price}
             </p>
-            <p className="text-gray-500 mb-6">
+            <p className="text-gray-500 mb-4">
+              <strong>Ingredients:</strong> {ingredients}
+            </p>
+            <p className="text-gray-500 mb-4">
               <strong>Post Time:</strong> time here
             </p>
 
@@ -87,6 +89,7 @@ const MealDetails = () => {
                 (count here Reviews)
               </span>
             </div>
+            <p className="text-gray-600 mb-8">{description}</p>
 
             <div className="flex items-center gap-2">
               <div>

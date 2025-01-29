@@ -39,6 +39,8 @@ const AddMeal = () => {
       category,
       price,
       likes: 0,
+      reviews: 0,
+      rating: 5,
       ingredients,
       description,
       distributorName: user.displayName,
@@ -71,7 +73,7 @@ const AddMeal = () => {
             icon: "success",
             title: "New Meal Added Successfully",
           });
-          navigate("/dashboard/addMeal");
+          navigate("/dashboard/allMeals");
         }
       });
   };
@@ -123,7 +125,7 @@ const AddMeal = () => {
 
         {/* Category */}
         <div>
-          <label className="block text-gray-700 font-medium mb-1">
+          <label className="blockl text-gray-700 font-medium mb-1">
             Category *
           </label>
           <select

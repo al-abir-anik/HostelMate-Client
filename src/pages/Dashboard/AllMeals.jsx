@@ -63,12 +63,12 @@ const AllMeals = () => {
             {meals.map((meal) => (
               <tr key={meal._id} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border">{meal.title}</td>
-                <td className="px-4 py-2 border">{meal.quantity}</td>
-                <td className="px-4 py-2 border">{meal.quantity}</td>
-                <td className="px-4 py-2 border">{meal.location}</td>
+                <td className="px-4 py-2 border">{meal.likes}</td>
+                <td className="px-4 py-2 border">{meal.reviews}</td>
+                <td className="px-4 py-2 border">{meal.rating}</td>
                 <td className="px-4 py-2 border">{meal.distributorName}</td>
                 <td className="px-4 py-2 border">
-                  <Link to={`/updateFood/${meal._id}`}>
+                  <Link to={`/meal/${meal._id}`}>
                     <button className="bg-blue-500 text-white px-3 py-1 rounded-md mr-2 hover:bg-blue-600">
                       View Meal
                     </button>
