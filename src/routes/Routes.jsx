@@ -15,11 +15,13 @@ import AllReviews from "../pages/Dashboard/AllReviews";
 import ServeMeals from "../pages/Dashboard/ServeMeals";
 import Checkout from "../pages/Checkout/Checkout";
 import PrivateRoute from "./PrivateRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const Routes = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
