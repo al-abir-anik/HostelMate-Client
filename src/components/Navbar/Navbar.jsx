@@ -350,11 +350,12 @@ const Navbar = () => {
                 </a>
               </li> */}
               <li>
-                <Link to={"/dashboard"} className="dropdown-item">
+                <Link to={"/dashboard"} className="dropdown-item mb-2">
                   <span className="icon-[tabler--help-triangle]"></span>
                   Dashboard
                 </Link>
               </li>
+
               <li className="dropdown-footer gap-2">
                 <button
                   onClick={handleSignOut}

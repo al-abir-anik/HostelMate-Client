@@ -1,11 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLoaderData,
-  useLocation,
-} from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import AuthContext from "../context/AuthContext/AuthContext";
 
 const Dashboard = () => {
@@ -18,12 +12,12 @@ const Dashboard = () => {
     loadFlyonui();
   }, [location.pathname]);
 
-  const { user, loading, setLoading } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const userEmail = user.email;
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/user/${userEmail}`)
+    fetch(`https://hostel-mate-server-ten.vercel.app/user/${userEmail}`)
       .then((res) => res.json())
       .then((data) => setCurrentUser(data));
   }, [userEmail]);
@@ -118,7 +112,6 @@ const Dashboard = () => {
         <main className="flex flex-col flex-grow">
           <Outlet></Outlet>
         </main>
-        {/* <Footer></Footer> */}
         <footer className="bg-[#2A3042] text-white py-4 text-center">
           <p>&copy; 2025 HostelMate. All rights reserved.</p>
         </footer>

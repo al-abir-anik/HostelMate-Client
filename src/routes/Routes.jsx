@@ -17,6 +17,7 @@ import Checkout from "../pages/Checkout/Checkout";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import DashboardPage from "../pages/UserDashboard/DashboardPage";
+import MyProfile from "../pages/UserDashboard/MyProfile";
 
 const Routes = createBrowserRouter([
   {
@@ -74,6 +75,8 @@ const Routes = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardPage></DashboardPage>,
       },
+
+      // Admin dashboard Pages
       {
         path: "adminProfile",
         element: <AdminProfile></AdminProfile>,
@@ -97,6 +100,12 @@ const Routes = createBrowserRouter([
       {
         path: "serveMeals",
         element: <ServeMeals></ServeMeals>,
+      },
+
+      // User dashboard Pages
+      {
+        path: "myProfile",
+        element: <MyProfile></MyProfile>,
       },
     ],
   },
