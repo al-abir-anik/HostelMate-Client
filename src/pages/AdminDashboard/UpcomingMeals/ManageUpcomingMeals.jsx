@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AddUpcomingMeal from "./AddUpcomingMeal";
+import AuthContext from "../../../context/AuthContext/AuthContext";
 
 const ManageUpcomingMeals = () => {
+  const { user } = useContext(AuthContext);
   const [meals, setMeals] = useState([]);
 
   useEffect(() => {
@@ -18,9 +21,7 @@ const ManageUpcomingMeals = () => {
 
       <div className="w-5/6 mx-auto mt-8">
         <div className="flex justify-end">
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-            + Add Upcoming Meal
-          </button>
+          <AddUpcomingMeal user={user}></AddUpcomingMeal>
         </div>
 
         {/* Table */}

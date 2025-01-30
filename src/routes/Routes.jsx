@@ -19,7 +19,7 @@ import DashboardPage from "../pages/UserDashboard/DashboardPage";
 import MyProfile from "../pages/UserDashboard/MyProfile";
 import RequestedMeals from "../pages/UserDashboard/RequestedMeals";
 import CheckoutPage from "../pages/Checkout/CheckoutPage";
-import ManageUpcomingMeals from "../pages/AdminDashboard/ManageUpcomingMeals";
+import ManageUpcomingMeals from "../pages/AdminDashboard/UpcomingMeals/ManageUpcomingMeals";
 
 const Routes = createBrowserRouter([
   {
