@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
@@ -7,34 +7,39 @@ const MealDetails = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const specificMeal = useLoaderData();
-  const { _id, title, imageUrl, category, price, likes, ingredients, description } =
-    specificMeal;
+  const {
+    _id,
+    title,
+    imageUrl,
+    category,
+    price,
+    likes,
+    ingredients,
+    description,
+  } = specificMeal;
 
   const [likeCount, setLikeCount] = useState(likes);
   const handleLikeCount = () => {
     if (user && user.email) {
+      const updatedLikes = likeCount + 1;
+      setLikeCount(updatedLikes);
+
       fetch(`https://hostel-mate-server-ten.vercel.app/meal/${_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ likes: likeCount + 1 }),
+        body: JSON.stringify({ likes: updatedLikes }), 
       })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Failed to update like count");
-          }
-          return res.json();
-        })
+        .then((res) => res.json())
         .then((data) => {
-          if (data.success) {
-            setLikeCount(data.likes);
-          } else {
-            console.error("Error updating like count:", data.message);
+          if (data.likes !== undefined) {
+            setLikeCount(data.likes); 
           }
         })
         .catch((error) => {
           console.error("Error:", error);
+          setLikeCount(likeCount); 
         });
     } else {
       Swal.fire({
@@ -98,7 +103,7 @@ const MealDetails = () => {
                   className="bg-gray-200 hover:bg-red-200 text-gray-500 py-2 px-4 rounded-lg transition duration-100 active:scale-95"
                   // disabled
                 >
-                  ❤️ <span>{likes}</span> Likes
+                  ❤️ <span>{likeCount}</span> Likes
                 </button>
               </div>
               <button

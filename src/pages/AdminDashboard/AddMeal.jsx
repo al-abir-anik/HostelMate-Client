@@ -43,6 +43,7 @@ const AddMeal = () => {
       rating: 5,
       ingredients,
       description,
+      postDate: new Date().toLocaleString(),
       distributorName: user.displayName,
       distributorEmail: user.email,
     };

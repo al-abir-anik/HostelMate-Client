@@ -13,11 +13,12 @@ import AddMeal from "../pages/AdminDashboard/AddMeal";
 import AllMeals from "../pages/AdminDashboard/AllMeals";
 import AllReviews from "../pages/AdminDashboard/AllReviews";
 import ServeMeals from "../pages/AdminDashboard/ServeMeals";
-import Checkout from "../pages/Checkout/Checkout";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import DashboardPage from "../pages/UserDashboard/DashboardPage";
 import MyProfile from "../pages/UserDashboard/MyProfile";
+import RequestedMeals from "../pages/UserDashboard/RequestedMeals";
+import CheckoutPage from "../pages/Checkout/CheckoutPage";
 
 const Routes = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ const Routes = createBrowserRouter([
         path: "/checkout",
         element: (
           <PrivateRoute>
-            <Checkout></Checkout>
+            <CheckoutPage></CheckoutPage>
           </PrivateRoute>
         ),
       },
@@ -106,6 +107,10 @@ const Routes = createBrowserRouter([
       {
         path: "myProfile",
         element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "requestedMeals",
+        element: <RequestedMeals></RequestedMeals>,
       },
     ],
   },

@@ -1,11 +1,10 @@
-import { useContext} from "react";
+import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext/AuthContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, signOutUser } = useContext(AuthContext);
-  
 
   const handleSignOut = () => {
     signOutUser()
@@ -303,7 +302,7 @@ const Navbar = () => {
         </div>
         {/* Avatar */}
         {user ? (
-          <div className="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
+          <div className="dropdown relative inline-flex active:scale-95 [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
             <button
               id="dropdown-scrollable"
               type="button"
