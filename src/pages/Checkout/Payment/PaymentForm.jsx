@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const PaymentForm = () => {
   const {
@@ -26,6 +27,10 @@ const PaymentForm = () => {
     if (error) {
       console.log("[error]", error);
     } else {
+      Swal.fire({
+        title: "Payment Successful",
+        icon: "success"
+      });
       console.log("[PaymentMethod]", paymentMethod);
     }
   };

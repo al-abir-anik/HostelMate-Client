@@ -62,7 +62,7 @@ const Dashboard = () => {
               <NavLink to={"serveMeals"}>Serve Meals</NavLink>
             </li>
             <li>
-              <NavLink to={"upcomingMeals"}>Upcoming Meals</NavLink>
+              <NavLink to={"manageUpcomingMeals"}>Upcoming Meals</NavLink>
             </li>
 
             <div className="divider text-base-content/50 py-6 after:border-0">

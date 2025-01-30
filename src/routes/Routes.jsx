@@ -19,6 +19,7 @@ import DashboardPage from "../pages/UserDashboard/DashboardPage";
 import MyProfile from "../pages/UserDashboard/MyProfile";
 import RequestedMeals from "../pages/UserDashboard/RequestedMeals";
 import CheckoutPage from "../pages/Checkout/CheckoutPage";
+import ManageUpcomingMeals from "../pages/AdminDashboard/ManageUpcomingMeals";
 
 const Routes = createBrowserRouter([
   {
@@ -102,6 +103,11 @@ const Routes = createBrowserRouter([
         path: "serveMeals",
         element: <ServeMeals></ServeMeals>,
       },
+      {
+        path: "manageUpcomingMeals",
+        element: <ManageUpcomingMeals></ManageUpcomingMeals>,
+      },
+
 
       // User dashboard Pages
       {
