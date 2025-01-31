@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 const MealDetails = () => {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const specificMeal = useLoaderData();
   const {
     _id,
@@ -58,9 +58,60 @@ const MealDetails = () => {
     }
   };
 
-  const handleRequestMeal = (id) => {
-   fetch()
+  const handleRequestMeal = () => {
+    const requestDate = new Date().toLocaleString();
+    const newRequestMeal = {
+      title,
+      imageUrl,
+      category,
+      price,
+      likes,
+      ingredients,
+      description,
+      requestUserName: user.displayName,
+      requestUserEmail: user.email,
+      requestDate,
+      status: "pending",
+    };
+
+    fetch(`http://localhost:3000/request-meals`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newRequestMeal),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Confirm Meal Request",
+            text: "Are you sure you want to request this meal?",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Request Meal",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Meal Request Successful",
+                text: "You can track your request in the dashboard",
+                icon: "success",
+              });
+            }
+          });
+        }
+      });
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <section className="bg-gray-50 py-10">
@@ -111,7 +162,7 @@ const MealDetails = () => {
                 </button>
               </div>
               <button
-                onClick={()=>handleRequestMeal(_id)}
+                onClick={handleRequestMeal}
                 className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300"
               >
                 Request Meal
