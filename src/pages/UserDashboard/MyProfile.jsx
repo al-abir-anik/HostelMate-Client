@@ -1,9 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import { Link } from "react-router-dom";
 
 const MyProfile = () => {
   const { user } = useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    fetch(`http://localhost:3000/user/${user.email}`)
+      .then((res) => res.json())
+      .then((data) => setCurrentUser(data));
+  }, [user.email]);
 
   return (
     <div>
@@ -20,8 +26,11 @@ const MyProfile = () => {
             />
           </div>
           <div>
-            <h2 className="text-4xl font-semibold text-gray-800">
-              {user?.displayName}
+            <h2 className="text-4xl font-semibold text-gray-800 flex items-start gap-2">
+              {user?.displayName} {""}
+              <span className="badge badge-soft badge-primary">
+                {currentUser?.badge}
+              </span>
             </h2>
             <p className="text-gray-600 text-lg mt-3">{user?.email}</p>
           </div>

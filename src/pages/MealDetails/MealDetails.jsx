@@ -74,35 +74,51 @@ const MealDetails = () => {
       status: "pending",
     };
 
-    fetch(`http://localhost:3000/request-meals`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newRequestMeal),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.insertedId) {
-          Swal.fire({
-            title: "Confirm Meal Request",
-            text: "Are you sure you want to request this meal?",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Request Meal",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire({
-                title: "Meal Request Successful",
-                text: "You can track your request in the dashboard",
-                icon: "success",
-              });
-            }
-          });
+    if (user && user.email) {
+      fetch(`http://localhost:3000/request-meals`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newRequestMeal),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.insertedId) {
+            Swal.fire({
+              title: "Confirm Meal Request",
+              text: "Are you sure you want to request this meal?",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Request Meal",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire({
+                  title: "Meal Request Successful",
+                  text: "You can track your request in the dashboard",
+                  icon: "success",
+                });
+              }
+            });
+          }
+        });
+    } else {
+      Swal.fire({
+        title: "You are not logged in",
+        text: "Please log in to request a meal",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Log In",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/logIn");
         }
       });
+    }
   };
 
   if (loading) {
@@ -156,7 +172,6 @@ const MealDetails = () => {
                 <button
                   onClick={handleLikeCount}
                   className="bg-gray-200 hover:bg-red-200 text-gray-500 py-2 px-4 rounded-lg transition duration-100 active:scale-95"
-                  // disabled
                 >
                   ❤️ <span>{likeCount}</span> Likes
                 </button>

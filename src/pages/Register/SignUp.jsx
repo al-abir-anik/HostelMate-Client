@@ -31,6 +31,7 @@ const SignUp = () => {
             const newUser = {
               name: fullname,
               email: email,
+              badge: "bronze",
               role: "user",
             };
             axiosPublic.post("/users", newUser).then((res) => {

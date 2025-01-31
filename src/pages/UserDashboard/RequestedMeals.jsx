@@ -53,8 +53,8 @@ const RequestedMeals = () => {
               <tr className="bg-gray-100">
                 <th className="px-4 py-2 border">Title</th>
                 <th className="px-4 py-2 border">Likes</th>
-                <th className="px-4 py-2 border">Status</th>
                 <th className="px-4 py-2 border">Request Date</th>
+                <th className="px-4 py-2 border">Status</th>
                 <th className="px-4 py-2 border">Actions</th>
               </tr>
             </thead>
@@ -63,8 +63,8 @@ const RequestedMeals = () => {
                 <tr key={meal._id} className="hover:bg-gray-50">
                   <td className="px-4 py-2 border">{meal.title}</td>
                   <td className="px-4 py-2 border">{meal.likes}</td>
-                  <td className="px-4 py-2 border">{meal.status}</td>
                   <td className="px-4 py-2 border">{meal.requestDate}</td>
+                  <td className="px-4 py-2 border">{meal.status}</td>
                   <td className="px-4 py-2 border">
                     <button
                       onClick={() => handleCancel(meal._id)}
