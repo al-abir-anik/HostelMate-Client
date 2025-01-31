@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
 const AddUpcomingMeal = ({ user }) => {
+  const navigate = useNavigate();
+
   const handleAddUpcomingMeal = () => {
     MySwal.fire({
       html: `
@@ -19,7 +22,7 @@ const AddUpcomingMeal = ({ user }) => {
           <div class="flex gap-3">
             <div class="mb-2">
                 <label class="font-bold">Category:</label>
-                <input id="swal-category" class="w-full bg-gray-200 rounded p-2" type="text"/>
+                <input id="swal-category" class="w-full bg-gray-200 rounded p-2" type="text" placeholder="Breakfast,Lunch,Dinner"/>
             </div>
             <div class="mb-2">
                 <label class="font-bold">Price:</label>
@@ -62,7 +65,17 @@ const AddUpcomingMeal = ({ user }) => {
           return false;
         }
 
-        return { title, imageUrl, category, price, ingredients, description };
+        return {
+          title,
+          imageUrl,
+          category,
+          likes: 0,
+          price,
+          ingredients,
+          description,
+          distributorName: user.displayName,
+          distributorEmail: user.email,
+        };
       },
     }).then((result) => {
       if (result.isConfirmed) {
@@ -72,7 +85,7 @@ const AddUpcomingMeal = ({ user }) => {
   };
 
   const handleAddRequest = (newMeal) => {
-    fetch("http://localhost:3000/upcoming-meals", {
+    fetch("https://hostel-mate-server-ten.vercel.app/upcoming-meals", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -97,6 +110,7 @@ const AddUpcomingMeal = ({ user }) => {
             icon: "success",
             title: "An Upcoming Meal Successfully Added",
           });
+          navigate("/dashboard");
         }
       })
       .catch((error) => {

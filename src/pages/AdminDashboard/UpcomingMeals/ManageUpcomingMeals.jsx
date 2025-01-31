@@ -1,17 +1,62 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import AddUpcomingMeal from "./AddUpcomingMeal";
 import AuthContext from "../../../context/AuthContext/AuthContext";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ManageUpcomingMeals = () => {
   const { user } = useContext(AuthContext);
-  const [meals, setMeals] = useState([]);
+  const navigate = useNavigate();
+  const upcomingMeals = useLoaderData();
 
-  useEffect(() => {
-    fetch(`https://hostel-mate-server-ten.vercel.app/all-meals`)
+  const handlePublish = (id) => {
+    fetch("https://hostel-mate-server-ten.vercel.app/all-meals", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        rating: 5,
+      }),
+    })
       .then((res) => res.json())
-      .then((data) => setMeals(data))
-      .catch((error) => console.log(error.message));
-  }, []);
+      .then((addResponse) => {
+        if (addResponse.insertedId) {
+          fetch(`https://hostel-mate-server-ten.vercel.app/upcoming-meals/${id}`, {
+            method: "DELETE",
+            headers: {
+              "content-type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((deleteResponse) => {
+              if (deleteResponse.deletedCount > 0) {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                  },
+                });
+                Toast.fire({
+                  icon: "success",
+                  title:
+                    "Upcoming Meal successfully moved to all meals",
+                });
+                navigate("/dashboard");
+              }
+            });
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <div>
@@ -36,14 +81,14 @@ const ManageUpcomingMeals = () => {
               </tr>
             </thead>
             <tbody>
-              {meals.map((meal) => (
+              {upcomingMeals.map((meal) => (
                 <tr key={meal._id} className="hover:bg-gray-50">
                   <td className="px-4 py-2 border">{meal.title}</td>
                   <td className="px-4 py-2 border">{meal.likes}</td>
                   <td className="px-4 py-2 border">{meal.distributorName}</td>
                   <td className="px-4 py-2 border">
                     <button
-                      onClick={() => handleDelete(meal._id)}
+                      onClick={() => handlePublish(meal._id)}
                       className="bg-green-600 text-white px-4 py-1 rounded-lg hover:bg-green-700 transition"
                     >
                       Publish

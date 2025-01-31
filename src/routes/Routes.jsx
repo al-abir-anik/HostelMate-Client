@@ -44,8 +44,18 @@ const Routes = createBrowserRouter([
           fetch(`https://hostel-mate-server-ten.vercel.app/meal/${params.id}`),
       },
       {
+        path: "/upcoming-meals/:id",
+        element: <MealDetails></MealDetails>,
+        loader: ({ params }) =>
+          fetch(
+            `https://hostel-mate-server-ten.vercel.app/upcoming-meals/${params.id}`
+          ),
+      },
+      {
         path: "/upcomingMeals",
         element: <UpcomingMeals></UpcomingMeals>,
+        loader: () =>
+          fetch("https://hostel-mate-server-ten.vercel.app/upcoming-meals"),
       },
       {
         path: "/checkout",
@@ -106,8 +116,9 @@ const Routes = createBrowserRouter([
       {
         path: "manageUpcomingMeals",
         element: <ManageUpcomingMeals></ManageUpcomingMeals>,
+        loader: () =>
+          fetch("https://hostel-mate-server-ten.vercel.app/upcoming-meals"),
       },
-
 
       // User dashboard Pages
       {

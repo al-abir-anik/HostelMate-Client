@@ -29,17 +29,17 @@ const MealDetails = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ likes: updatedLikes }), 
+        body: JSON.stringify({ likes: updatedLikes }),
       })
         .then((res) => res.json())
         .then((data) => {
           if (data.likes !== undefined) {
-            setLikeCount(data.likes); 
+            setLikeCount(data.likes);
           }
         })
         .catch((error) => {
           console.error("Error:", error);
-          setLikeCount(likeCount); 
+          setLikeCount(likeCount);
         });
     } else {
       Swal.fire({
