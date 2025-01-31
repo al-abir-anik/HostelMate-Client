@@ -2,20 +2,61 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "./../../context/AuthContext/AuthContext";
 import { CiSearch } from "react-icons/ci";
 import MealCard from "../../components/Meal/MealCard";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Meals = () => {
   const { loading } = useContext(AuthContext);
-  const [search, setSearch] = useState([]);
+  const [search, setSearch] = useState("");
   const [meals, setMeals] = useState([]);
-  const [sortExpiry, setSortExpiry] = useState(false);
-  const [column, setColumn] = useState(false);
+  const [category, setCategory] = useState("");
+  const [priceRange, setPriceRange] = useState("");
+
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  // useEffect(() => {
+  //   fetch(
+  //     `http://localhost:3000/all-meals?search=${search}&category=${category}&priceRange=${priceRange}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => setMeals(data))
+  //     .catch((error) => console.log(error.message));
+  // }, [search, category, priceRange]);
+
+
+
+  const fetchMeals = async (newPage = 1) => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/all-meals?search=${search}&category=${category}&priceRange=${priceRange}&page=${newPage}&limit=6`
+      );
+      const data = await res.json();
+
+      if (data.length === 0) {
+        setHasMore(false); // Stop loading if no more meals
+        return;
+      }
+
+      setMeals((prevMeals) => (newPage === 1 ? data : [...prevMeals, ...data]));
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   useEffect(() => {
-    fetch(`https://hostel-mate-server-ten.vercel.app/all-meals?search=${search}`) // ?sort=${sortExpiry}&search=${search}
-      .then((res) => res.json())
-      .then((data) => setMeals(data))
-      .catch((error) => console.log(error.message));
-  }, [search]);
+    setMeals([]); // Clear meals when filters change
+    setPage(1);
+    setHasMore(true);
+    fetchMeals(1);
+  }, [search, category, priceRange]);
+
+  const loadMoreMeals = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchMeals(nextPage);
+  };
+
+
 
   if (loading) {
     return (
@@ -51,47 +92,51 @@ const Meals = () => {
               placeholder="Search by food name"
             />
             <select
+              onChange={(e) => setCategory(e.target.value)}
               className="select join-item w-2/6 border-gray-300"
-              defaultValue={"default"}
+              defaultValue=""
               aria-label="select"
             >
-              <option value={"default"} disabled>
+              <option value="" disabled>
                 Category
               </option>
-              <option>Sci-fi</option>
-              <option>Drama</option>
-              <option>Action</option>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Lunch">Lunch</option>
+              <option value="Dinner">Dinner</option>
             </select>
           </div>
         </div>
 
         {/* Price range filter */}
         <select
+          onChange={(e) => setPriceRange(e.target.value)}
           className="select max-w-sm appearance-none border-gray-300 shadow-sm"
-          defaultValue={"default"}
+          defaultValue=""
           aria-label="select"
         >
-          <option value={"default"} disabled>
+          <option value="" disabled>
             Filter by Price Range
           </option>
-          <option>$0 - $10</option>
-          <option>$10 - $20</option>
-          <option>$20 - $50</option>
-          <option>$50+</option>
+          <option value="0-50">$0 - $50</option>
+          <option value="51-100">$51 - $100</option>
+          <option value="101-200">$101 - $200</option>
+          <option value="201+">$201+</option>
         </select>
       </div>
 
       {/* Main Content */}
       <main className="mt-14 mb-20 space-y-14">
-        <div
-          className={`grid grid-cols-1 sm:grid-cols-2  
-          ${column ? "lg:grid-cols-2" : "lg:grid-cols-3"}
-          gap-6 md:gap-10 lg:gap-12 justify-center`}
+      <InfiniteScroll
+          dataLength={meals.length}
+          next={loadMoreMeals}
+          hasMore={hasMore}
+          loader={<h4 className="text-center">Loading more meals...</h4>}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 lg:gap-12 justify-center"
         >
           {meals.map((meal) => (
-            <MealCard key={meal._id} meal={meal}></MealCard>
+            <MealCard key={meal._id} meal={meal} />
           ))}
-        </div>
+        </InfiniteScroll>
       </main>
     </div>
   );

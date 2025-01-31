@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
@@ -58,6 +58,10 @@ const MealDetails = () => {
     }
   };
 
+  const handleRequestMeal = (id) => {
+   fetch()
+  };
+
   return (
     <section className="bg-gray-50 py-10">
       <div className="container mx-auto px-4">
@@ -107,8 +111,8 @@ const MealDetails = () => {
                 </button>
               </div>
               <button
+                onClick={()=>handleRequestMeal(_id)}
                 className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300"
-                disabled
               >
                 Request Meal
               </button>

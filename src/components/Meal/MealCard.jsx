@@ -8,7 +8,7 @@ const MealCard = ({ meal }) => {
       <figure>
         <img
           src={imageUrl}
-          alt="Shoes"
+          alt="meal image"
           className="h-60 object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </figure>
