@@ -8,8 +8,8 @@ This project is a **Hostel Management System** developed using the **MERN stack*
 
 ## Admin Credentials
 
-- **Admin Username:** `admin@example.com`
-- **Admin Password:** `admin123`
+- **Admin Username:** `anik@abir.com`
+- **Admin Password:** `aaaaaA`
 
 ---
 
